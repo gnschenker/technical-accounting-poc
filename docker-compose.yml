@@ -1,0 +1,18 @@
+version: "2"
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: TA
+    volumes:
+      - ./ta-db/scripts:/docker-entrypoint-initdb.d
+      # - ./ta-db/data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080 
