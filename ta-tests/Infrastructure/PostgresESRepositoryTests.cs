@@ -19,7 +19,7 @@ namespace TechnicalAccounting.Tests.Infrastructure
 
   public class PostgresESRepositoryTests
   {
-    string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") 
+    string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
       ?? "Server=127.0.0.1;Port=5432;Database=TA;User Id=postgres;Password=example;";
 
     private PostgresESRepository<AccountLedgerAggregate> GetRepo()
