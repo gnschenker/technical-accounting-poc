@@ -1,11 +1,13 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace TechnicalAccounting.Contracts
 {
-  public class QuoteId : AbstractId<Guid>
+  public class QuoteId : AbstractId
   {
-    public QuoteId() : this(Guid.NewGuid()) { }
-    public QuoteId(Guid id) { 
+    public QuoteId() : this(Guid.NewGuid().ToString()) { }
+    [JsonConstructor]
+    public QuoteId(string id) { 
       this.Id = id;
     }
   }

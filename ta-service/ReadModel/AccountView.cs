@@ -6,9 +6,9 @@ namespace TechnicalAccounting.ReadModel
   public class AccountView
   {
     public string AccountId { get; set; }
-    public Guid PolicyId { get; set; }
-    public Guid BenefitId { get; set; }
-    public Guid SliceId { get; set; }
+    public string PolicyId { get; set; }
+    public string BenefitId { get; set; }
+    public string SliceId { get; set; }
     public string AccountType { get; set; }
     public string PostingRuleCodeLastEntry { get; set; }
     public long VersionLastEntry { get; set; }

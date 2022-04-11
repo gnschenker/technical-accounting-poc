@@ -4,7 +4,7 @@ using TechnicalAccounting.Contracts;
 
 namespace TechnicalAccounting.Domain
 {
-  public class RulesEngine
+  public class RulesEngine : IRulesEngine
   {
     public IEnumerable<PostingRule> GetRules(DomainEvents eventType)
     {

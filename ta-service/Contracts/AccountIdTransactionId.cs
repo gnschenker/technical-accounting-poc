@@ -1,10 +1,13 @@
 using System;
+using System.Text.Json.Serialization;
+
 namespace TechnicalAccounting.Contracts
 {
-  public class AccountTransactionId : AbstractId<Guid>
+  public class AccountTransactionId : AbstractId
   {
-    public AccountTransactionId() : this(Guid.NewGuid()) { }
-    public AccountTransactionId(Guid id)
+    public AccountTransactionId() : this(Guid.NewGuid().ToString()) { }
+    [JsonConstructor]
+    public AccountTransactionId(string id)
     {
       this.Id = id;
     }

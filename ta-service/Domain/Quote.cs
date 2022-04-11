@@ -1,7 +1,7 @@
 using System;
 namespace TechnicalAccounting.Domain
 {
-  public class Quote
+  public class Quote : IQuote
   {
     public decimal GetValueFromPath(string path)
     {

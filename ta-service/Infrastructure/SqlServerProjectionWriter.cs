@@ -8,7 +8,7 @@ using TechnicalAccounting.ReadModel;
 
 namespace TechnicalAccounting.Infrastructure
 {
-  public class SqlServerProjectionWriter<TId, T> : IProjectionWriter<TId, T>
+  public class SqlServerProjectionWriter<T> : IProjectionWriter<T>
      where T : class
   {
     private readonly string _connectionString;
@@ -32,7 +32,7 @@ namespace TechnicalAccounting.Infrastructure
       _updateSql = string.Format("UPDATE {0} SET {1} WHERE Id=@id", type.Name, updates);
     }
 
-    public async Task<T> AddOrUpdate(TId key, Func<T> addFactory, Func<T, T> update, bool probablyExists = true)
+    public async Task<T> AddOrUpdate(string key, Func<T> addFactory, Func<T, T> update, bool probablyExists = true)
     {
       if (probablyExists)
       {
@@ -56,7 +56,7 @@ namespace TechnicalAccounting.Infrastructure
       }
     }
 
-    private async Task<T> Update(TId id, Func<T> addFactory, Func<T, T> update)
+    private async Task<T> Update(string id, Func<T> addFactory, Func<T, T> update)
     {
       using (var conn = new SqlConnection(_connectionString))
       {

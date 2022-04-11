@@ -7,13 +7,13 @@ namespace TechnicalAccounting.Domain
 {
   public class FooService
   {
-    private RulesEngine engine;
+    private IRulesEngine engine;
     private IQuoteProvider quoteProvider;
-    private IRepository<AccountId, AccountLedgerAggregate> repository;
+    private IRepository<AccountLedgerAggregate> repository;
 
     public FooService(
-      RulesEngine rulesEngine, 
-      IRepository<AccountId, AccountLedgerAggregate> repository,
+      IRulesEngine rulesEngine, 
+      IRepository<AccountLedgerAggregate> repository,
       IQuoteProvider quoteProvider
     )
     {
@@ -44,12 +44,16 @@ namespace TechnicalAccounting.Domain
         var amount = quote.GetValueFromPath(rule.PathToValue);
 
         var creditAggregateId = new AccountId(policyId, benefitId, sliceId, rule.AccountTypeCredit);
-        var creditAccount = await repository.GetById(creditAggregateId);
+        var creditAccount = await repository.GetById(creditAggregateId.ToString());
+        if(String.IsNullOrEmpty(((IAggregate)creditAccount).Id))
+          creditAccount.RegisterAccount(new AccountId(policyId, benefitId, sliceId, rule.AccountTypeCredit));
         creditAccount.Credit(transactionId, rule.PostingRuleCode, amount, timestamp, valueDate);
         await repository.Save(creditAccount);
 
         var debitAggregateId = new AccountId(policyId, benefitId, sliceId, rule.AccountTypeDebit);
-        var debitAccount = await repository.GetById(debitAggregateId);
+        var debitAccount = await repository.GetById(debitAggregateId.ToString());
+        if(String.IsNullOrEmpty(((IAggregate)debitAccount).Id))
+          debitAccount.RegisterAccount(new AccountId(policyId, benefitId, sliceId, rule.AccountTypeCredit));
         debitAccount.Debit(transactionId, rule.PostingRuleCode, amount, timestamp, valueDate);
         await repository.Save(debitAccount);
       }

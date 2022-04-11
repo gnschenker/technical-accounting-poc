@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 
 namespace TechnicalAccounting.Domain
 {
-  public interface IAggregate<TID>
+  public interface IAggregate
     {
-        TID Id { get; }
+        string Id { get; }
         int Version { get; }
         IEnumerable<object> GetUncommittedEvents();
         void ClearUncommittedEvents();

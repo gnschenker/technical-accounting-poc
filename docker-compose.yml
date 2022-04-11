@@ -10,6 +10,8 @@ services:
     volumes:
       - ./ta-db/scripts:/docker-entrypoint-initdb.d
       # - ./ta-db/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432 
 
   adminer:
     image: adminer

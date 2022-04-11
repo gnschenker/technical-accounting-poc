@@ -3,7 +3,7 @@ using TechnicalAccounting.Contracts;
 
 namespace TechnicalAccounting.Domain
 {
-  public class AccountLedgerAggregate : AggregateBase<AccountId, AccountLedgerState>
+  public class AccountLedgerAggregate : AggregateBase<AccountLedgerState>
   { 
     public static AccountLedgerAggregate Create(AccountId accountId)
     {
@@ -29,7 +29,7 @@ namespace TechnicalAccounting.Domain
       if(amount <= 0)
         throw new ArgumentException("amount must be positive.");
 
-      var e = new AccountDebited(State.Id, accountTransactionId, postingRuleCode, amount, timestamp, valueDate, State.Version);
+      var e = new AccountDebited(State.AccountId, accountTransactionId, postingRuleCode, amount, timestamp, valueDate, State.Version);
       Apply(e);
     }
 
@@ -43,7 +43,7 @@ namespace TechnicalAccounting.Domain
         throw new ArgumentException("amount must be positive.");
         
 
-      var e = new AccountCredited(State.Id, accountTransactionId, postingRuleCode, amount, timestamp, valueDate, State.Version);
+      var e = new AccountCredited(State.AccountId, accountTransactionId, postingRuleCode, amount, timestamp, valueDate, State.Version);
       Apply(e);
     }
   }

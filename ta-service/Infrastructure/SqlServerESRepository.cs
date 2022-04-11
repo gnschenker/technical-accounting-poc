@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Linq;
@@ -10,9 +9,9 @@ using TechnicalAccounting.Domain;
 
 namespace TechnicalAccounting.Infrastructure
 {
-  public class SqlServerESRepository<TID, TAggregate>
-    : IRepository<TID, TAggregate>
-      where TAggregate : class, IAggregate<TID>
+  public class SqlServerESRepository<TAggregate>
+    : IRepository<TAggregate>
+      where TAggregate : class, IAggregate
   {
     private readonly IAggregateFactory factory;
     private readonly string connectionString;
@@ -22,7 +21,7 @@ namespace TechnicalAccounting.Infrastructure
       this.factory = factory;
       this.connectionString = connectionString;
     }
-    public async Task<TAggregate> GetById(TID id)
+    public async Task<TAggregate> GetById(string id)
     {
       using (var conn = new SqlConnection(connectionString))
       {
@@ -31,7 +30,7 @@ namespace TechnicalAccounting.Infrastructure
         var selectSql = $"SELECT FROM Events WHERE AggregateId='{id}' ORDER BY Version";
         var items = (await conn.QueryAsync<EventStoreItem>(selectSql, new { id }));
         var events = items.Select(item => item.MapToEvent());
-        var aggregate = factory.Create<TID, TAggregate>(events);
+        var aggregate = factory.Create<TAggregate>(events);
         return aggregate;
       }
     }

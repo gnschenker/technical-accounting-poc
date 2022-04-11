@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace TechnicalAccounting.Contracts
 {
-  public class AccountId : AbstractId<string>
+  public class AccountId : AbstractId
   {
     [JsonIgnore]
     public override string Id 

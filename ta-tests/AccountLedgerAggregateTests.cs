@@ -20,8 +20,8 @@ namespace TechnicalAccounting.Tests
       account.RegisterAccount(accountId);
 
       // assert
-      var events = ((IAggregate<AccountId>)account).GetUncommittedEvents();
-      Assert.Equal(1, events.Count());
+      var events = ((IAggregate)account).GetUncommittedEvents();
+      Assert.Single(events);
       Assert.IsType<AccountRegistered>(events.First());
     }
 
@@ -43,8 +43,8 @@ namespace TechnicalAccounting.Tests
       account.Debit(tx, postingRuleCode, amount, timestamp, valueDate);
 
       // assert
-      var events = ((IAggregate<AccountId>)account).GetUncommittedEvents();
-      Assert.Equal(1, events.Count());
+      var events = ((IAggregate)account).GetUncommittedEvents();
+      Assert.Single(events);
 
       var e = events.First();
       Assert.IsType<AccountDebited>(e);

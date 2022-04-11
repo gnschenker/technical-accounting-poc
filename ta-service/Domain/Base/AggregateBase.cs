@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 namespace TechnicalAccounting.Domain
 {
-  public abstract class AggregateBase<TID, TState> : IAggregate<TID>
-        where TState : IState<TID>
+  public abstract class AggregateBase<TState> : IAggregate
+        where TState : IState
     {
         private readonly IList<object> _uncommitedEvents = new List<object>();
         protected TState State;
@@ -24,17 +24,17 @@ namespace TechnicalAccounting.Domain
             State.Modify(e);
         }
 
-        IEnumerable<object> IAggregate<TID>.GetUncommittedEvents()
+        IEnumerable<object> IAggregate.GetUncommittedEvents()
         {
             return _uncommitedEvents;
         }
 
-        void IAggregate<TID>.ClearUncommittedEvents()
+        void IAggregate.ClearUncommittedEvents()
         {
             _uncommitedEvents.Clear();
         }
 
-        TID IAggregate<TID>.Id { get { return State.Id; } }
-        int IAggregate<TID>.Version { get { return State.Version; } }
+        string IAggregate.Id { get { return State.Id; } }
+        int IAggregate.Version { get { return State.Version; } }
     }
 }

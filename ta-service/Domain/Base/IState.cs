@@ -2,9 +2,9 @@ using System;
 
 namespace TechnicalAccounting.Domain
 {
-    public interface IState<TID>
+    public interface IState
     {
-        TID Id { get; }
+        string Id { get; }
         int Version { get; }
         void Modify(object e);
     }

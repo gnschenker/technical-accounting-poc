@@ -1,14 +1,12 @@
-using System;
 using System.Threading.Tasks;
-using TechnicalAccounting.Contracts;
 
 namespace TechnicalAccounting.ReadModel
 {
   public class AccountViewWriter
   {
-    IProjectionWriter<string, AccountView> writer;
+    IProjectionWriter<AccountView> writer;
 
-    public AccountViewWriter(IProjectionWriter<string, AccountView> writer)
+    public AccountViewWriter(IProjectionWriter<AccountView> writer)
     {
       this.writer = writer;
     }

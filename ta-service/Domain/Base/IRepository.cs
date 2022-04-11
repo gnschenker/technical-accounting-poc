@@ -1,13 +1,11 @@
-using System;
 using System.Threading.Tasks;
-using TechnicalAccounting.Contracts;
 
 namespace TechnicalAccounting.Domain
 {
-  public interface IRepository<TID, TAggregate>
-      where TAggregate : class, IAggregate<TID>
+  public interface IRepository<TAggregate>
+      where TAggregate : class, IAggregate
   {
-    Task<TAggregate> GetById(TID id);
+    Task<TAggregate> GetById(string id);
     Task Save(TAggregate aggregate);
   }
 }

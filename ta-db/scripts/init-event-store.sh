@@ -1,10 +1,9 @@
-#!/bin/bash
 set -e
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
     CREATE TABLE events(
         index serial not null PRIMARY KEY,
-        aggregateid integer not null,
+        aggregateid varchar(200) not null,
         version integer not null,
         body varchar(2000) not null,
         metadata varchar(2000),

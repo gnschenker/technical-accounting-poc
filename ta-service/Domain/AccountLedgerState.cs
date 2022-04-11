@@ -3,9 +3,10 @@ using TechnicalAccounting.Contracts;
 
 namespace TechnicalAccounting.Domain
 {
-  public class AccountLedgerState : IState<AccountId>
+  public class AccountLedgerState : IState
   {
-    public AccountId Id { get; private set; }
+    public string Id { get; private set; }
+    public AccountId AccountId { get; private set; }
     public int Version { get; private set; }
 
     public AccountLedgerState(IEnumerable<object> events)
@@ -22,7 +23,8 @@ namespace TechnicalAccounting.Domain
     }
     private void When(AccountRegistered e)
     {
-      Id = e.AccountId;
+      Id = e.AccountId.Id;
+      AccountId = e.AccountId;
       Version = 1;
     }
 
