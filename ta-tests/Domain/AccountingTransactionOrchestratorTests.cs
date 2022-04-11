@@ -9,7 +9,8 @@ namespace TechnicalAccounting.Domain.Tests
 {
   public class AccountingTransactionOrchestratorTests
   {
-    string connectionString = "Server=127.0.0.1;Port=5432;Database=TA;User Id=postgres;Password=example;";
+    string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") 
+      ?? "Server=127.0.0.1;Port=5432;Database=TA;User Id=postgres;Password=example;";
     private PostgresESRepository<AccountLedgerAggregate> GetRepo()
     {
       IAggregateFactory factory = new AccountLedgerAggregateFactory();

@@ -19,10 +19,12 @@ namespace TechnicalAccounting.Tests.Infrastructure
 
   public class PostgresESRepositoryTests
   {
-    string connectionString = "Server=127.0.0.1;Port=5432;Database=TA;User Id=postgres;Password=example;";
+    string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") 
+      ?? "Server=127.0.0.1;Port=5432;Database=TA;User Id=postgres;Password=example;";
 
     private PostgresESRepository<AccountLedgerAggregate> GetRepo()
     {
+      Console.WriteLine($"ConnectionString: {connectionString}");
       IAggregateFactory factory = new AccountLedgerAggregateFactory();
       var repo = new PostgresESRepository<AccountLedgerAggregate>(factory, connectionString);
       return repo;

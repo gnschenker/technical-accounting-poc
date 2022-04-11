@@ -18,3 +18,12 @@ services:
     restart: always
     ports:
       - 8080:8080 
+
+  tests:
+    image: mcr.microsoft.com/dotnet/sdk:5.0
+    volumes:
+      - .:/app/src
+    working_dir: /app/src 
+    command: dotnet test ta-tests
+    environment:
+      - CONNECTION_STRING="Server=db;Port=5432;Database=TA;User Id=postgres;Password=example;"
