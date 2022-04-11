@@ -5,6 +5,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
         index serial not null PRIMARY KEY,
         aggregateid varchar(200) not null,
         version integer not null,
+        timestamp timestamp not null,
         body varchar(2000) not null,
         metadata varchar(2000),
         dispatched boolean not null default false
