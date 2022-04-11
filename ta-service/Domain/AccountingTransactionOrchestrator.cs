@@ -5,13 +5,13 @@ using TechnicalAccounting.Contracts;
 
 namespace TechnicalAccounting.Domain
 {
-  public class FooService
+  public class AccountingTransactionOrchestrator
   {
     private IRulesEngine engine;
     private IQuoteProvider quoteProvider;
     private IRepository<AccountLedgerAggregate> repository;
 
-    public FooService(
+    public AccountingTransactionOrchestrator(
       IRulesEngine rulesEngine, 
       IRepository<AccountLedgerAggregate> repository,
       IQuoteProvider quoteProvider

@@ -7,7 +7,7 @@ using System;
 
 namespace TechnicalAccounting.Domain.Tests
 {
-  public class FooServiceTests
+  public class AccountingTransactionOrchestratorTests
   {
     string connectionString = "Server=127.0.0.1;Port=5432;Database=TA;User Id=postgres;Password=example;";
     private PostgresESRepository<AccountLedgerAggregate> GetRepo()
@@ -40,7 +40,7 @@ namespace TechnicalAccounting.Domain.Tests
       var quoteId = new QuoteId();
       var timestamp = DateTime.Now;
       var valueDate = DateTime.Today;
-      var foo = new FooService(rulesEngine.Object, repository, quoteProvider.Object);
+      var foo = new AccountingTransactionOrchestrator(rulesEngine.Object, repository, quoteProvider.Object);
       // act
       await foo.handle(DomainEvents.MOVE_TO_ON_RISK, policyId, benefitId, sliceId, quoteId, timestamp, valueDate);
       // assert
