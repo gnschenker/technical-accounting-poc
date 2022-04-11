@@ -45,10 +45,12 @@ namespace TechnicalAccounting.Domain.Tests
       await foo.handle(DomainEvents.MOVE_TO_ON_RISK, policyId, benefitId, sliceId, quoteId, timestamp, valueDate);
       // assert
       var accId1 = new AccountId(policyId, benefitId, sliceId, accountTypeCredit);
+      Console.WriteLine($"Credit AccountID: {accId1.Id}");
       var res1 = await repository.GetById(accId1.Id);
       Assert.Equal(2, ((IAggregate)res1).Version);
 
       var accId2 = new AccountId(policyId, benefitId, sliceId, accountTypeDebit);
+      Console.WriteLine($"Debit AccountID: {accId2.Id}");
       var res2 = await repository.GetById(accId2.Id);
       Assert.Equal(2, ((IAggregate)res2).Version);
     }

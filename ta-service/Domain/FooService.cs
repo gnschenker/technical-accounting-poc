@@ -46,14 +46,14 @@ namespace TechnicalAccounting.Domain
         var creditAggregateId = new AccountId(policyId, benefitId, sliceId, rule.AccountTypeCredit);
         var creditAccount = await repository.GetById(creditAggregateId.ToString());
         if(String.IsNullOrEmpty(((IAggregate)creditAccount).Id))
-          creditAccount.RegisterAccount(new AccountId(policyId, benefitId, sliceId, rule.AccountTypeCredit));
+          creditAccount.RegisterAccount(creditAggregateId);
         creditAccount.Credit(transactionId, rule.PostingRuleCode, amount, timestamp, valueDate);
         await repository.Save(creditAccount);
 
         var debitAggregateId = new AccountId(policyId, benefitId, sliceId, rule.AccountTypeDebit);
         var debitAccount = await repository.GetById(debitAggregateId.ToString());
         if(String.IsNullOrEmpty(((IAggregate)debitAccount).Id))
-          debitAccount.RegisterAccount(new AccountId(policyId, benefitId, sliceId, rule.AccountTypeCredit));
+          debitAccount.RegisterAccount(debitAggregateId);
         debitAccount.Debit(transactionId, rule.PostingRuleCode, amount, timestamp, valueDate);
         await repository.Save(debitAccount);
       }

@@ -1,10 +1,9 @@
 using System;
 using System.Linq;
 using TechnicalAccounting.Contracts;
-using TechnicalAccounting.Domain;
 using Xunit;
 
-namespace TechnicalAccounting.Tests
+namespace TechnicalAccounting.Domain.Tests
 {
   public class AccountLedgerAggregateTests
   {

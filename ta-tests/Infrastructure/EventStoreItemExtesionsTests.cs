@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Xunit;
-using TechnicalAccounting.Infrastructure;
 using TechnicalAccounting.Contracts;
 
-namespace TechnicalAccounting.Tests
+namespace TechnicalAccounting.Infrastructure.Tests
 {
   public class EventStoreItemExtesionsTests
   {
