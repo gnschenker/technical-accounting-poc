@@ -27,4 +27,5 @@ services:
     command: dotnet test ta-tests
     environment:
       - CONNECTION_STRING=Server=db;Port=5432;Database=TA;User Id=postgres;Password=example;
+      - READ_MODEL_CONNECTION_STRING=Server=db;Port=5432;Database=TA;User Id=postgres;Password=example;
       - FOO=bar
