@@ -15,7 +15,7 @@ namespace TechnicalAccounting.ReadModel
     {
       await writer.Add(e.AccountId.Id, new AccountView
       {
-        AccountId = e.AccountId.Id,
+        Id = e.AccountId.Id,
         PolicyId = e.AccountId.PolicyId.Id,
         BenefitId = e.AccountId.BenefitId.Id,
         SliceId = e.AccountId.SliceId.Id,
@@ -28,7 +28,7 @@ namespace TechnicalAccounting.ReadModel
       await writer.Update(e.AccountId.Id, view =>
       {
         view.VersionLastEntry = e.Version;
-        view.AccountTransactionIdLastEntry = e.AccountTransactionId;
+        view.AccountTransactionIdLastEntry = e.AccountTransactionId.Id;
         view.PostingRuleCodeLastEntry = e.PostingRuleCode;
         view.ValueDateLastEntry = e.ValueDate;
         view.TimeStampLastEntry = e.Timestamp;
@@ -40,7 +40,7 @@ namespace TechnicalAccounting.ReadModel
       await writer.Update(e.AccountId.Id, view =>
       {
         view.VersionLastEntry = e.Version;
-        view.AccountTransactionIdLastEntry = e.AccountTransactionId;
+        view.AccountTransactionIdLastEntry = e.AccountTransactionId.Id;
         view.PostingRuleCodeLastEntry = e.PostingRuleCode;
         view.ValueDateLastEntry = e.ValueDate;
         view.TimeStampLastEntry = e.Timestamp;
