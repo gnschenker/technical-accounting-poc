@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace TechnicalAccounting.ReadModel
 {
-  public class AccountViewWriter
+  public class AccountViewWriter : IViewWriter
   {
     IProjectionWriter<AccountView> writer;
 
