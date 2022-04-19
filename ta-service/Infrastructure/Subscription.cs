@@ -3,12 +3,13 @@ using TechnicalAccounting.ReadModel;
 
 namespace TechnicalAccounting.Infrastructure
 {
-  public class Subscription{
+  public class Subscription
+  {
     public Subscription(IViewWriter writer)
     {
       Id = Guid.NewGuid();
       this.ViewWriter = writer;
-      this.Offset = 0;
+      this.Offset = -1;
     }
 
     public Guid Id { get; }

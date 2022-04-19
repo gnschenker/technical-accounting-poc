@@ -38,8 +38,12 @@ namespace TechnicalAccounting.Infrastructure
       var events = aggregate.GetUncommittedEvents();
       var type = typeof(EventStoreItem);
       const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public;
-      var names = string.Join(",", type.GetProperties(flags).Select(x => x.Name));
-      var parameters = string.Join(",", type.GetProperties().Select(x => "@" + x.Name));
+      var names = string.Join(",", type.GetProperties(flags)
+        .Where(x => x.Name.ToLower() != "index")
+        .Select(x => x.Name));
+      var parameters = string.Join(",", type.GetProperties()
+        .Where(x => x.Name.ToLower() != "index")
+        .Select(x => "@" + x.Name));
       var insertSql = $"INSERT INTO Events({names}) VALUES({parameters})";
       using (var conn = new NpgsqlConnection(connectionString))
       {
@@ -48,19 +52,7 @@ namespace TechnicalAccounting.Infrastructure
         {
           foreach(var e in events)
           {
-            var jsonString = JsonSerializer.Serialize(e);
-            var typeName = e.GetType().FullName;
-            var metaData = new Dictionary<string,string>();
-            metaData.Add("TypeName", typeName);
-            var jsonMetaData = JsonSerializer.Serialize(metaData);
-            var item = new EventStoreItem
-            {
-              AggregateId = aggregate.Id,
-              Version = aggregate.Version,
-              Timestamp = System.DateTime.Now,
-              Body = jsonString,
-              MetaData = jsonMetaData
-            };
+            var item = e.FromEvent(aggregate.Id, aggregate.Version);
             await conn.ExecuteAsync(insertSql, item, tx);
           }
           tx.Commit();

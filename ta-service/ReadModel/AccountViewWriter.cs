@@ -17,8 +17,8 @@ namespace TechnicalAccounting.ReadModel
       {
         Id = e.AccountId.Id,
         PolicyId = e.AccountId.PolicyId.Id,
-        BenefitId = e.AccountId.BenefitId.Id,
-        SliceId = e.AccountId.SliceId.Id,
+        BenefitId = e.AccountId.BenefitId?.Id,
+        SliceId = e.AccountId.SliceId?.Id,
         TimeStampLastEntry = e.Timestamp
       });
     }
